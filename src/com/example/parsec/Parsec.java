@@ -14,7 +14,6 @@ import com.example.parsec.ObjectFactory.EnemyType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-
 public class Parsec extends SimpleBaseGameActivity {
 
 	private static int CAMERA_WIDTH;
