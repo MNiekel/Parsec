@@ -31,7 +31,7 @@ public class ResourceManager {
 	
 	public static ResourceManager getInstance() {
 		if (thisInstance == null) {
-			Log.v("ResourceManager", "Creating new ResourceManager");
+			Log.i("ResourceManager", "Creating new ResourceManager");
 			thisInstance = new ResourceManager();
 		}
 		return thisInstance;
