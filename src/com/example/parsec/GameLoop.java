@@ -15,13 +15,18 @@ public class GameLoop implements IUpdateHandler {
 	public float timeElapsed = 0;
 
 	private GameScene gameScene;
+	private boolean gameLoop;
 	
 	public GameLoop(GameScene scene) {
 		this.gameScene = scene;
+		this.gameLoop = true;
 	}
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
+		if (!gameLoop) {
+			return;
+		}
 		bulletCoolDown += pSecondsElapsed;
 		if (gameScene.enemies == null) {
 			timeElapsed += pSecondsElapsed;
@@ -45,8 +50,12 @@ public class GameLoop implements IUpdateHandler {
 					
 					if (gameScene.player.collidesWith(enemy)) {
 						Log.i(LOG, "Collision detected, you die!");
+						gameScene.player.setVisible(false);
+						gameScene.createExplosion(gameScene.player);
+						gameScene.createExplosion(enemy);
 						enemy.dispose();
 						enemy.setVisible(false);
+						gameLoop = false;
 						break;
 					}
 					
@@ -57,6 +66,7 @@ public class GameLoop implements IUpdateHandler {
 							Log.v(LOG, "You hit an enemy object");
 							gameScene.bulletPool.recyclePoolItem(bullet);
 							iterator.remove();
+							gameScene.createExplosion(enemy);
 							enemy.setVisible(false);
 							enemy.dispose();
 							break;

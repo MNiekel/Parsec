@@ -8,7 +8,11 @@ import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.andengine.entity.scene.IOnAreaTouchListener;
+import org.andengine.entity.scene.IOnSceneTouchListener;
+import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import android.util.DisplayMetrics;
@@ -52,23 +56,32 @@ public class Parsec extends BaseGameActivity {
 	@Override
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
 		ResourceManager.getInstance().setGameGlobals(this.getEngine(), this.camera, this.getApplicationContext());
-		ResourceManager.getInstance().loadTextures();
-		ResourceManager.getInstance().loadTempTextures();
+		ResourceManager.getInstance().loadSplashTextures();
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws Exception {
-		pOnCreateSceneCallback.onCreateSceneFinished(scene = new GameScene());
+		pOnCreateSceneCallback.onCreateSceneFinished(new SplashScene());
 	}
 	
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
-		mEngine.registerUpdateHandler(new TimerHandler(1f, new ITimerCallback() {
+		mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
+				ResourceManager.getInstance().loadTextures();
+				ResourceManager.getInstance().loadTempTextures();
+				
+				Scene attachedScene = mEngine.getScene();
+				if (attachedScene != null) {
+					attachedScene.detachSelf();
+				}
+				
+				scene = new GameScene();
 
 				scene.populateScene();
+				mEngine.setScene(scene);
 			}
 		}));
 		pOnPopulateSceneCallback.onPopulateSceneFinished();

@@ -3,6 +3,7 @@ package com.example.parsec;
 import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.entity.scene.Scene;
+import org.andengine.util.color.Color;
 
 import android.opengl.GLES20;
 import android.util.Log;
@@ -25,14 +26,15 @@ public class Controller extends AnalogOnScreenControl {
 				if (parent != null) {
 					((GameScene) parent).fireBullet();
 				} else {
-					Log.v(LOG, "GameScene = null");
+					Log.e(LOG, "GameScene = null");
 				}
 			}
 		});
 		
 		final float posY = ResourceManager.getInstance().camera.getHeight() - ResourceManager.getInstance().mBaseRegion.getHeight();
 
-		getControlBase().setPosition(0, posY);		
+		getControlBase().setPosition(0, posY);
+		getControlKnob().setColor(Color.GREEN);
 		getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 		getControlBase().setAlpha(0.5f);
 		getControlBase().setScaleCenter(0, 128);

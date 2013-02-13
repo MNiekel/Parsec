@@ -15,8 +15,4 @@ public class BulletObject extends GameObject {
 		this.registerUpdateHandler(physics);
 		this.physics.setVelocity(VELOCITY, 0);
 	}
-	
-	public void resetBullet() {
-		this.setVisible(true);
-	}
 }

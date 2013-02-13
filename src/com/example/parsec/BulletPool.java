@@ -11,6 +11,14 @@ public class BulletPool extends GenericPool<BulletObject> {
 		return ObjectFactory.getInstance().createBullet();
 	}
 	
+	@Override
+	public synchronized BulletObject obtainPoolItem() {
+		BulletObject bullet = super.obtainPoolItem();
+		bullet.setVisible(true);
+		return bullet;
+	}
+	
+	@Override
 	protected void onHandleRecycleItem(final BulletObject bullet) {
 		bullet.setVisible(false);
 		bullet.detachSelf();

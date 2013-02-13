@@ -19,13 +19,15 @@ public class ResourceManager {
 	public Camera camera;
 	public Engine engine;
 	public Context context;
+	
+	public ITextureRegion mSplashRegion;
 
 	public ITextureRegion mPlayerTextureRegion;
 	public ITextureRegion mBulletTextureRegion;
 	
 	public ITextureRegion mBackgroundRegion;
 	public ITextureRegion mMoonTextureRegion;
-	
+		
 	public ITextureRegion mKnobRegion;
 	public ITextureRegion mBaseRegion;
 	
@@ -75,6 +77,14 @@ public class ResourceManager {
 		mBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBaseTextureAtlas, context, "onscreen_control_base.png", 0, 0);
 		mBaseTextureAtlas.load();
 	}	
+	
+	public void loadSplashTextures() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+
+		BitmapTextureAtlas mSplashTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 474, 180, TextureOptions.BILINEAR);
+		mSplashRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mSplashTextureAtlas, context, "logo.png", 0, 0);
+		mSplashTextureAtlas.load();
+	}
 	
 	public void loadTempTextures() {
 		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 32, 32, TextureOptions.BILINEAR);
