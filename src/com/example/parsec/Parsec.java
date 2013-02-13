@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 public class Parsec extends BaseGameActivity {
+	
+	private final String LOG = "Parsec";
 
 	private static int CAMERA_WIDTH;
 	private static int CAMERA_HEIGHT;
@@ -32,7 +34,7 @@ public class Parsec extends BaseGameActivity {
 	    CAMERA_WIDTH = metrics.widthPixels;
 	    CAMERA_HEIGHT = metrics.heightPixels;
 		this.camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		Log.i("onCreateEngineOptions", "width:height = "+CAMERA_WIDTH+":"+CAMERA_HEIGHT);
+		Log.i(LOG, "onCreateEngineOptions: widthxheight = "+CAMERA_WIDTH+"x"+CAMERA_HEIGHT);
 
 		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.camera);
 	}
@@ -75,14 +77,11 @@ public class Parsec extends BaseGameActivity {
 	@Override
 	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
 		if (pKeyCode == KeyEvent.KEYCODE_BACK && pEvent.getAction() == KeyEvent.ACTION_DOWN) {
-			if (gamePaused) {
-				onResumeGame();
-				gamePaused = false;
-			} else {
+			if (!gamePaused) {
 				onPauseGame();
 				gamePaused = true;
+				return true;
 			}
-			return true;
 		}
 		return super.onKeyDown(pKeyCode, pEvent);
 	}

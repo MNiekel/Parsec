@@ -11,6 +11,8 @@ import com.example.parsec.ObjectFactory.EnemyType;
 
 public class EnemyLayer extends Entity {
 	
+	private final String LOG = "EnemyLayer";
+	
 	private final float ENEMY_INTERVAL = 2;
 	private final int WAVE_SIZE = 5;
 	private float timeElapsed = 0;

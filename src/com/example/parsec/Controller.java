@@ -2,20 +2,31 @@ package com.example.parsec;
 
 import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
+import org.andengine.entity.scene.Scene;
+
 import android.opengl.GLES20;
+import android.util.Log;
 
 public class Controller extends AnalogOnScreenControl {
 	
-	public Controller(final PlayerObject player) {
+	private final static String LOG = "Controller";
+	
+	private static final float SPEED_MULTIPLIER = 200;
+	
+	public Controller(final GameObject object, final Scene parent) {
 		super(0, 0, ResourceManager.getInstance().camera, ResourceManager.getInstance().mBaseRegion, ResourceManager.getInstance().mKnobRegion, 0.1f, 100, ResourceManager.getInstance().engine.getVertexBufferObjectManager(), new IAnalogOnScreenControlListener() {
 			@Override
 			public void onControlChange(final BaseOnScreenControl pBOSC, final float pX, final float pY) {
-				player.setVelocity(pX*200, pY*200);
+				((PlayerObject) object).setVelocity(pX*SPEED_MULTIPLIER, pY*SPEED_MULTIPLIER);
 			}
 
 			@Override
 			public void onControlClick(final AnalogOnScreenControl pAnalogOnScreenControl) {
-				player.fireBullet();
+				if (parent != null) {
+					((GameScene) parent).fireBullet();
+				} else {
+					Log.v(LOG, "GameScene = null");
+				}
 			}
 		});
 		

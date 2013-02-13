@@ -1,6 +1,10 @@
 package com.example.parsec;
 
+import org.andengine.entity.scene.Scene;
+
 public class ObjectFactory {
+	
+	private final String LOG = "ObjectFactory";
 	
 	private static ObjectFactory thisInstance;
 	
@@ -8,6 +12,8 @@ public class ObjectFactory {
 		FIGHTER_A,
 		FIGHTER_B,
 		DESTROYER,
+		ASTEROID,
+		SAUCER,
 	}
 	
 	public static ObjectFactory getInstance() {
@@ -36,12 +42,16 @@ public class ObjectFactory {
 				return new EnemyObject(ResourceManager.getInstance().mPlayerTextureRegion);
 			case DESTROYER:
 				return new EnemyObject(ResourceManager.getInstance().mPlayerTextureRegion);
+			case ASTEROID:
+				return new EnemyObject(ResourceManager.getInstance().mPlayerTextureRegion);
+			case SAUCER:
+				return new EnemyObject(ResourceManager.getInstance().mPlayerTextureRegion);
 			default:
 				return new EnemyObject(ResourceManager.getInstance().mPlayerTextureRegion);
 		}
 	}
 	
-	public synchronized Controller createController(PlayerObject controlled) {
-		return new Controller(controlled);
+	public synchronized Controller createController(GameObject controlledObject, Scene parentScene) {
+		return new Controller(controlledObject, parentScene);
 	}
 }

@@ -12,6 +12,8 @@ import android.util.Log;
 
 public class ResourceManager {
 	
+	private final static String LOG = "ResourceManager";
+	
 	private static ResourceManager thisInstance;
 	
 	public Camera camera;
@@ -31,7 +33,7 @@ public class ResourceManager {
 	
 	public static ResourceManager getInstance() {
 		if (thisInstance == null) {
-			Log.i("ResourceManager", "Creating new ResourceManager");
+			Log.i(LOG, "Creating new ResourceManager");
 			thisInstance = new ResourceManager();
 		}
 		return thisInstance;
