@@ -20,6 +20,9 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.scene.background.AutoParallaxBackground;
+import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.UncoloredSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
@@ -44,7 +47,9 @@ public class GameScene extends Scene {
 	}
 	
 	public void populateScene() {
+		this.setBackground(new ScrollingBackground());
 		this.attachChild(new BackgroundLayer());
+		
 		bulletPool = new BulletPool();
 		bullets = new LinkedList<BulletObject>();
 		
@@ -54,6 +59,9 @@ public class GameScene extends Scene {
 		
 		Controller controller = ObjectFactory.getInstance().createController(player, this);
 		this.setChildScene(controller);
+		
+		FireButton fireButton = ObjectFactory.getInstance().createFireButton(this);
+		this.attachChild(fireButton);
 		
 		this.gameLoop = new GameLoop(this);
 		this.registerUpdateHandler(this.gameLoop);
@@ -103,6 +111,11 @@ public class GameScene extends Scene {
 				particleSystem.detachSelf();
                 sortChildren();
                 unregisterUpdateHandler(pTimerHandler);
+                if (object.getClass() == PlayerObject.class) {
+                	Log.v(LOG, "Player destroyed");
+                	//ResourceManager.getInstance().engine.getScene().setIgnoreUpdate(true);
+                	//setIgnoreUpdate(true);
+                }
             }
 		}));
 

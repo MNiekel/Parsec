@@ -54,4 +54,8 @@ public class ObjectFactory {
 	public synchronized Controller createController(GameObject controlledObject, Scene parentScene) {
 		return new Controller(controlledObject, parentScene);
 	}
+	
+	public synchronized FireButton createFireButton(Scene parentScene) {
+		return new FireButton(parentScene);
+	}
 }

@@ -27,6 +27,8 @@ public class ResourceManager {
 	
 	public ITextureRegion mBackgroundRegion;
 	public ITextureRegion mMoonTextureRegion;
+	public ITextureRegion mMovingStarsRegion;
+	public ITextureRegion mSurfaceRegion;
 		
 	public ITextureRegion mKnobRegion;
 	public ITextureRegion mBaseRegion;
@@ -53,11 +55,11 @@ public class ResourceManager {
 	public void loadTextures() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		
-		BitmapTextureAtlas mSpaceshipTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 64, 64, TextureOptions.BILINEAR);
+		BitmapTextureAtlas mSpaceshipTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 96, 96, TextureOptions.BILINEAR);
 		mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mSpaceshipTextureAtlas, context, "spaceship.png", 0, 0);
 		mSpaceshipTextureAtlas.load();
 		
-		BitmapTextureAtlas mBulletTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 10, 10);
+		BitmapTextureAtlas mBulletTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 10, 10, TextureOptions.NEAREST);
 		mBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBulletTextureAtlas, context, "bullet.png", 0, 0);
 		mBulletTextureAtlas.load();
 
@@ -65,7 +67,15 @@ public class ResourceManager {
 		mBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBackgroundTextureAtlas, context, "backgroundstars.png", 0, 0);
 		mBackgroundTextureAtlas.load();
 
-		BitmapTextureAtlas mMoonTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 512, 512);
+		BitmapTextureAtlas mMovingStarsTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.REPEATING_BILINEAR);
+		mMovingStarsRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMovingStarsTextureAtlas, context, "moving_stars.png", 0, 0);
+		mMovingStarsTextureAtlas.load();
+
+		BitmapTextureAtlas mSurfaceTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 96, 16, TextureOptions.BILINEAR);
+		mSurfaceRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mSurfaceTextureAtlas, context, "surface.png", 0, 0);
+		mSurfaceTextureAtlas.load();
+
+		BitmapTextureAtlas mMoonTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
 		mMoonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMoonTextureAtlas, context, "moon.png", 0, 0);
 		mMoonTextureAtlas.load();
 		

@@ -23,11 +23,7 @@ public class Controller extends AnalogOnScreenControl {
 
 			@Override
 			public void onControlClick(final AnalogOnScreenControl pAnalogOnScreenControl) {
-				if (parent != null) {
-					((GameScene) parent).fireBullet();
-				} else {
-					Log.e(LOG, "GameScene = null");
-				}
+				//do nothing
 			}
 		});
 		
@@ -38,8 +34,8 @@ public class Controller extends AnalogOnScreenControl {
 		getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 		getControlBase().setAlpha(0.5f);
 		getControlBase().setScaleCenter(0, 128);
-		getControlBase().setScale(1.25f);
-		getControlKnob().setScale(1.25f);
+		getControlBase().setScale(2f);
+		getControlKnob().setScale(2f);
 		refreshControlKnobPosition();
 	}
 }

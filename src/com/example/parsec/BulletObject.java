@@ -7,7 +7,7 @@ public class BulletObject extends GameObject {
 	
 	private final String LOG = "BulletObject";
 	
-	private final int VELOCITY = 100;
+	private final int VELOCITY = 400;
 	private PhysicsHandler physics = new PhysicsHandler(this);
 
 	public BulletObject(ITextureRegion pTextureRegion) {

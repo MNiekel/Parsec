@@ -2,10 +2,14 @@ package com.example.parsec;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
+import org.andengine.engine.camera.Camera;
 import org.andengine.entity.Entity;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.CubicBezierCurveMoveModifier;
+import org.andengine.entity.modifier.LoopEntityModifier;
+import org.andengine.entity.modifier.MoveModifier;
 
 import com.example.parsec.ObjectFactory.EnemyType;
 
@@ -48,7 +52,13 @@ public class EnemyLayer extends Entity {
 	private void createEnemy() {
 		final EnemyObject enemy = ObjectFactory.getInstance().createEnemy(EnemyType.FIGHTER_A);
 		enemy.setX(width);
-		CubicBezierCurveMoveModifier move = new CubicBezierCurveMoveModifier(10, width, 0, width / 2, height, width, 0, 0, height / 2)
+		Random randomGenerator = new Random();
+		final float duration = randomGenerator.nextFloat()*4 + 4;
+		final float y1 = (float) randomGenerator.nextInt((int) height);
+		final float y2 = (float) height - randomGenerator.nextInt((int) height / 4);
+		final float y3 = (float) randomGenerator.nextInt((int) height / 4);
+		final float y4 = (float) randomGenerator.nextInt((int) height);
+		final CubicBezierCurveMoveModifier move = new CubicBezierCurveMoveModifier(duration, width, y1, 3 * width / 4, y2, width / 2, y3, -enemy.getWidth(), y4)
 		{
 			protected void onModifierStarted(IEntity pItem) {
         		super.onModifierStarted(pItem);
@@ -56,8 +66,8 @@ public class EnemyLayer extends Entity {
 			
 			protected void onModifierFinished(IEntity pItem) {
 	        	super.onModifierFinished(pItem);
-	        	pItem.setVisible(false);
-	        	pItem.dispose();
+	        	LoopEntityModifier loopMove = new LoopEntityModifier(new MoveModifier(4, width, -((GameObject) pItem).getWidth(), pItem.getY(), pItem.getY()));
+	        	pItem.registerEntityModifier(loopMove);
 			}
 		};
 		enemy.registerEntityModifier(move);

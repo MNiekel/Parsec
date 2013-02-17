@@ -16,9 +16,7 @@ public class BackgroundLayer extends Entity {
 		final float moonY = height/2;
 
 		final GameObject moon = new GameObject(moonX, moonY, ResourceManager.getInstance().mMoonTextureRegion);
-		final GameObject stars = new GameObject(0, 0, width, height, ResourceManager.getInstance().mBackgroundRegion);
 		
-		this.attachChild(stars);
 		this.attachChild(moon);
 	}
 }
